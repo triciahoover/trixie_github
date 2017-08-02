@@ -33,20 +33,21 @@ def set_display_word(secret_word) #this function displays the secret word with b
         $display_word << "_" #it pushes blank spaces into the array equal to the number of letters in the word
     end    
     # p $display_word #causes the array to be shown for the tests
-    $display_words
+    $display_word
 end
 # def all_guessed_letters(letter)
 #     guessed_letters = [] #we need new array for the combining of previous 2 letter guess arrays (correct & incorrect)
 #     guessed_letters = push_incorrect_guess_into(letter)|push_correct_guess_into(letter)  #bar means "set union" which combines the 2 arrays and removes duplicates (although not needed here)
 # end
 def update_display_word(secret_word, letter)
+    p "secret word is #{secret_word} and letter is #{letter}"
     # display_word = set_display_word(secret_word) #display word is blanks
     $secret_word_array = $secret_word.split("") #this breaks the secret word into an array of individual letters 
     counter = 0
     found = false
     $secret_word_array.each do |index|#we used the .each so that each letter in the secret word gets compared to the letter (index) ;the input within the bars is another variable which allows us to pass the letters into the do loop. technically index is the input for each letter
-        if index == $letter
-        $display_word[counter] = $letter
+        if index == letter
+        $display_word[counter] = letter
         found = true
         end 
     counter = counter + 1
@@ -103,16 +104,20 @@ def play_hangman(secret_word, letter) #bringing all the functions from above int
         push_incorrect_guess_into(letter)
     end
 end
-def run_program() #caling functions in order
-    input_secret_word()
-    set_display_word($secret_word)
+def run_program(letter) #caling functions in order
+	p "the letter is #{letter}"
     # p "Player 2: Choose a letter."
     $solved = false
     $wrong_guesses_count = 0
-    $all_guesses = []
+    # $all_guesses = []
+    # #below... as long as "solved" isn't true AND wrong guesses is less than 10, update display and check for winner loops.
     while $solved == false && $wrong_guesses_count <10 #while solved is false
-        input_letter()
-        update_display_word($secret_word, $letter)
-        check_winner($display_word, $secret_word_array)
-    end
+        update_display_word($secret_word, letter)
+        # check_winner($display_word, $secret_word_array)
+     #     if $all_guesses.include?(letter) != true
+        	# redirect'/choices?message=already picked... pick again'
+     #    # puts "You have already guessed #{$letter} :("
+    	# else $all_guesses << letter
+    	end
+    # end
 end
