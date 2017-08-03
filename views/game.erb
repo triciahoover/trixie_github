@@ -1,7 +1,14 @@
 The word to guess is <br>
 <%= display_word.join(" ") %> <br>
 <p><%= message %>
-<p> You only have <%=wrong_guesses_count%> wrong guesses left!
+
+<% if wrong_guesses_count = 1 %>
+		<p> You have <%=wrong_guesses_count%> wrong guess!  You only get 10 guesses!
+<% esle %>
+		<p> You have <%=wrong_guesses_count%> wrong guesses!  You only get 10 guesses!
+<% end %>		
+
+
 
 
 <p> Player 2, please choose a letter.
